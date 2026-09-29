@@ -19,6 +19,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "vehicles", key = "#id", sync = true)
     public Vehicle getVehicleById(Long id) {
         return vehicleRepository.findById(id)
                 .orElseThrow(() -> new VehicleNotFoundException(id));
